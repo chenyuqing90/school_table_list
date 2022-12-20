@@ -2,8 +2,9 @@ import 'package:flutter/material.dart';
 
 
 class Todo {
-  Todo({required this.name, required this.checked});
+  Todo({required this.name, required this.subname, required this.checked});
   final String name;
+  final String subname;
   bool checked;
 }
 
@@ -36,7 +37,7 @@ class TodoItem extends StatelessWidget {
         child: Icon(Icons.grade, color: Colors.white,),
       ),
       title: Text(todo.name, style: _getTextStyle(todo.checked)),
-      subtitle: Text('123'),
+      subtitle: Text(todo.subname),
       trailing: Icon(Icons.edit),
     );
   }
@@ -49,6 +50,7 @@ class TodoList extends StatefulWidget {
 
 class _TodoListState extends State<TodoList> {
   final TextEditingController _textFieldController = TextEditingController();
+  final TextEditingController _textFieldController_02 = TextEditingController();
   final List<Todo> _todos = <Todo>[];
 
     // Initial Selected Value
@@ -94,9 +96,9 @@ class _TodoListState extends State<TodoList> {
     });
   }
 
-  void _addTodoItem(String name) {
+  void _addTodoItem(String name, String subname) {
     setState(() {
-      _todos.add(Todo(name: name, checked: false));
+      _todos.add(Todo(name: name, subname: subname, checked: false));
     });
     _textFieldController.clear();
   }
@@ -115,7 +117,7 @@ class _TodoListState extends State<TodoList> {
                 decoration: const InputDecoration(hintText: '輸入內容'),
                ),
               TextField(
-               controller: _textFieldController,
+               controller: _textFieldController_02,
                decoration: const InputDecoration(hintText: '備註'),
               ),
               DropdownButton(
@@ -154,7 +156,8 @@ class _TodoListState extends State<TodoList> {
               child: const Text('確認'),
               onPressed: () {
                 Navigator.of(context).pop();
-                _addTodoItem(_textFieldController.text);
+                _addTodoItem(_textFieldController.text, _textFieldController_02.text);
+                
               },
             ),
             
