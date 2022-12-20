@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 
 
-
 class Todo {
   Todo({required this.name, required this.checked});
   final String name;
@@ -33,7 +32,7 @@ class TodoItem extends StatelessWidget {
         onTodoChanged(todo);
       },
       leading: CircleAvatar(
-        backgroundColor: Colors.amber,
+        backgroundColor: Colors.green,
         child: Icon(Icons.grade, color: Colors.white,),
       ),
       title: Text(todo.name, style: _getTextStyle(todo.checked)),
@@ -54,7 +53,8 @@ class _TodoListState extends State<TodoList> {
   Widget build(BuildContext context) {
     return new Scaffold(
       appBar: new AppBar(
-        title: new Text('Todo list'),
+        title: new Text('課程記事本'),
+        backgroundColor: Colors.green,
       ),
       body: ListView(
         padding: EdgeInsets.symmetric(vertical: 8.0),
@@ -66,8 +66,9 @@ class _TodoListState extends State<TodoList> {
         }).toList(),
       ),
       floatingActionButton: FloatingActionButton(
+          backgroundColor: Colors.lightGreen,
           onPressed: () => _displayDialog(),
-          tooltip: 'Add Item',
+          tooltip: '新增記事',
           child: Icon(Icons.add)),
     );
   }
@@ -120,7 +121,7 @@ class TodoApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return new MaterialApp(
-      title: 'Todo list',
+      title: '課程記事本',
       home: new TodoList(),
     );
   }
