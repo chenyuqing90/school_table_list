@@ -36,6 +36,7 @@ class TodoItem extends StatelessWidget {
         child: Icon(Icons.grade, color: Colors.white,),
       ),
       title: Text(todo.name, style: _getTextStyle(todo.checked)),
+      trailing: Icon(Icons.edit),
     );
   }
 }
