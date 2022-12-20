@@ -101,6 +101,7 @@ class _TodoListState extends State<TodoList> {
       _todos.add(Todo(name: name, subname: subname, checked: false));
     });
     _textFieldController.clear();
+    _textFieldController_02.clear();
   }
 
   Future<void> _displayDialog() async {
@@ -111,6 +112,8 @@ class _TodoListState extends State<TodoList> {
         return AlertDialog(
           title: const Text('新增記事'),
           content: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisSize: MainAxisSize.min,
             children: <Widget>[
               TextField(
                 controller: _textFieldController,
