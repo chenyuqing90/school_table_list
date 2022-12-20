@@ -31,7 +31,7 @@ class TodoItem extends StatelessWidget {
         onTodoChanged(todo);
       },
       leading: CircleAvatar(
-        child: Text(todo.name[0]),
+        child: Icon(Icons.grade),
       ),
       title: Text(todo.name, style: _getTextStyle(todo.checked)),
     );
@@ -50,8 +50,11 @@ class _TodoListState extends State<TodoList> {
   @override
   Widget build(BuildContext context) {
     return new Scaffold(
+      appBar: new AppBar(
+        title: new Text('Todo list'),
+      ),
       body: ListView(
-        padding: EdgeInsets.symmetric(vertical: 4.0),
+        padding: EdgeInsets.symmetric(vertical: 8.0),
         children: _todos.map((Todo todo) {
           return TodoItem(
             todo: todo,
@@ -109,105 +112,10 @@ class TodoApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return new MaterialApp(
-      title: 'School Table-ToDo List',
+      title: 'Todo list',
       home: new TodoList(),
     );
   }
 }
 
 void main() => runApp(new TodoApp());
-
-/*class Accordion extends StatefulWidget{
-  @override
-  _HomeState createState() => _HomeState();
-}
-class _HomeState extends State<Accordion> {
-
-  List<bool> expanded = [false, false];
-  //expaned status boolean for ExpansionPanel
-  //we have two panels so the bool value
-  //set bool to true, if you want to expand accordion by default
-
-
-  @override
-  Widget build(BuildContext context) {
-    return  Scaffold(
-        body: Container(
-          child: Column(
-            children: [
-              ExpansionTile(
-                title: Text("FAQ QUESTION ONE"),
-                children: [
-                  Container(
-                    color: Colors.black12,
-                    padding:EdgeInsets.all(20),
-                    width: double.infinity,
-                    child:  Text("Answers for Question One"),
-                  )
-                ],
-              ),
-
-              Card(
-                  color: Colors.greenAccent[100],
-                  child:ExpansionTile(
-                    title: Text("FAQ QUESTION TWO"),
-
-                    children: [
-                      Container(
-                        color: Colors.black12,
-                        padding:EdgeInsets.all(20),
-                        width: double.infinity,
-                        child:  TodoList(),
-                      )
-                    ],
-                  )
-              ),
-
-              ExpansionPanelList(
-                  expansionCallback: (panelIndex, isExpanded) {
-                    setState(() {
-                      expanded[panelIndex] = !isExpanded;
-                    });
-                  },
-                  animationDuration: Duration(seconds: 2),
-                  //animation duration while expanding/collapsing
-                  children:[
-                    ExpansionPanel(
-                        headerBuilder: (context, isOpen){
-                          return Padding(
-                              padding: EdgeInsets.all(15),
-                              child:Text("FAQ QUESTIOn THREE")
-                          );
-                        },
-                        body: Container(
-                          padding: EdgeInsets.all(20),
-                          color: Colors.redAccent[100],
-                          width: double.infinity,
-                          child: Text("hello world"),
-                        ),
-                        isExpanded: expanded[0]
-                    ),
-
-                    ExpansionPanel(
-                        headerBuilder: (context, isOpen){
-                          return Padding(
-                              padding: EdgeInsets.all(15),
-                              child:Text("FAQ QUESTIOn FOUR")
-                          );
-                        },
-                        body: Container(
-                          padding: EdgeInsets.all(20),
-                          color: Colors.blueAccent[100],
-                          width: double.infinity,
-                          child: Text("hello world"),
-                        ),
-                        isExpanded: expanded[1]
-                    )
-                  ]
-              )
-            ],
-          ),
-        )
-    );
-  }
-}*/
