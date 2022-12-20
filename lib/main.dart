@@ -36,6 +36,7 @@ class TodoItem extends StatelessWidget {
         child: Icon(Icons.grade, color: Colors.white,),
       ),
       title: Text(todo.name, style: _getTextStyle(todo.checked)),
+      subtitle: Text('123'),
       trailing: Icon(Icons.edit),
     );
   }
@@ -50,6 +51,19 @@ class _TodoListState extends State<TodoList> {
   final TextEditingController _textFieldController = TextEditingController();
   final List<Todo> _todos = <Todo>[];
 
+    // Initial Selected Value
+  String dropdownvalue = '請選擇';  
+ 
+  // List of items in our dropdown menu
+  var items = [  
+    '請選擇',
+    '行動APP課程',
+    '企業倫理',
+    'Item 3',
+    'Item 4',
+    'Item 5',
+  ];
+  
   @override
   Widget build(BuildContext context) {
     return new Scaffold(
@@ -58,7 +72,7 @@ class _TodoListState extends State<TodoList> {
         backgroundColor: Colors.green,
       ),
       body: ListView(
-        padding: EdgeInsets.symmetric(vertical: 8.0),
+        padding: EdgeInsets.symmetric(vertical: 16.0),
         children: _todos.map((Todo todo) {
           return TodoItem(
             todo: todo,
@@ -93,18 +107,51 @@ class _TodoListState extends State<TodoList> {
       barrierDismissible: false, // user must tap button!
       builder: (BuildContext context) {
         return AlertDialog(
-          title: const Text('Add a new todo item'),
-          content: TextField(
-            controller: _textFieldController,
-            decoration: const InputDecoration(hintText: 'Type your new todo'),
+          title: const Text('新增記事'),
+          content: Column(
+            children: <Widget>[
+              TextField(
+                controller: _textFieldController,
+                decoration: const InputDecoration(hintText: '輸入內容'),
+               ),
+              TextField(
+               controller: _textFieldController,
+               decoration: const InputDecoration(hintText: '備註'),
+              ),
+              DropdownButton(
+                // Initial Value
+              value: dropdownvalue,
+               
+              // Down Arrow Icon
+              icon: const Icon(Icons.keyboard_arrow_down),   
+               
+              // Array list of items
+              items: items.map((String items) {
+                return DropdownMenuItem(
+                  value: items,
+                  child: Text(items),
+                );
+              }).toList(),
+              // After selecting the desired option,it will
+              // change button value to selected value
+              onChanged: (String? newValue) {
+                setState(() {
+                  dropdownvalue = newValue!;
+                });
+              },
+              ),
+            ],
           ),
+          
           actions: <Widget>[
             TextButton(
-              child: const Text('ok'),
-              onPressed: (){},
+              child: const Text('取消'),
+              onPressed: (){
+                Navigator.of(context).pop();
+              },
             ),
             TextButton(
-              child: const Text('Add'),
+              child: const Text('確認'),
               onPressed: () {
                 Navigator.of(context).pop();
                 _addTodoItem(_textFieldController.text);
