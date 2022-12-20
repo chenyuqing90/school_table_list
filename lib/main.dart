@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+
+
 class Todo {
   Todo({required this.name, required this.checked});
   final String name;
@@ -31,7 +33,8 @@ class TodoItem extends StatelessWidget {
         onTodoChanged(todo);
       },
       leading: CircleAvatar(
-        child: Icon(Icons.grade),
+        backgroundColor: Colors.amber,
+        child: Icon(Icons.grade, color: Colors.white,),
       ),
       title: Text(todo.name, style: _getTextStyle(todo.checked)),
     );
@@ -95,12 +98,17 @@ class _TodoListState extends State<TodoList> {
           ),
           actions: <Widget>[
             TextButton(
+              child: const Text('ok'),
+              onPressed: (){},
+            ),
+            TextButton(
               child: const Text('Add'),
               onPressed: () {
                 Navigator.of(context).pop();
                 _addTodoItem(_textFieldController.text);
               },
             ),
+            
           ],
         );
       },
